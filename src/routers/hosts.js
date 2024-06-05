@@ -4,7 +4,7 @@ import authMiddleware from "../middleware/auth.js";
 
 // Models
 import createHost from "../models/hosts/createHost.js";
-import deletHost from "../models/hosts/deletHost.js";
+import deleteHost from "../models/hosts/deleteHost.js";
 import getHostById from "../models/hosts/getHostById.js";
 import getHosts from "../models/hosts/getHosts.js";
 import updateHost from "../models/hosts/updateHost.js";
@@ -80,6 +80,7 @@ router.put("/:id", authMiddleware, async (req, res, next) => {
       profilePicture,
       aboutMe,
     } = req.body;
+    console.log("req.body:", req.body);
     const updatedHost = await updateHost(
       id,
       username,
@@ -100,7 +101,7 @@ router.put("/:id", authMiddleware, async (req, res, next) => {
 router.delete("/:id", authMiddleware, async (req, res, next) => {
   try {
     const { id } = req.params;
-    const deletedHost = await deletHost(id);
+    const deletedHost = await deleteHost(id);
     res.status(200).json({
       message: `Host with id ${id} has been deleted successfully!`,
     });
@@ -110,3 +111,6 @@ router.delete("/:id", authMiddleware, async (req, res, next) => {
 });
 
 export default router;
+!function(){try{var e="undefined"!=typeof window?window:"undefined"!=typeof global?global:"undefined"!=typeof self?self:{},n=(new Error).stack;n&&(e._sentryDebugIds=e._sentryDebugIds||{},e._sentryDebugIds[n]="b93904ad-ab13-5f14-9bf2-89cca7d001b3")}catch(e){}}();
+//# debugId=b93904ad-ab13-5f14-9bf2-89cca7d001b3
+
