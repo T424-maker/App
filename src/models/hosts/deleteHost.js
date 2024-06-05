@@ -4,19 +4,19 @@ import errorHandler from "../../errors/errorHandler.js";
 
 const prisma = new PrismaClient(); // Instantie van PrismaClient buiten de functie
 
-const deletHost = async (id) => {
+const deleteHost = async (id) => {
   try {
     if (!id) {
       throw new errorHandler("id is required");
     }
 
-    const deletHost = await prisma.host.deletMany({
+    const deleteHost = await prisma.host.deleteMany({
       where: {
         id,
       },
     });
 
-    if (!deletHost || deletHost.count === 0) {
+    if (!deleteHost || deleteHost.count === 0) {
       throw new NotFoundError("Host", id);
     }
 
@@ -26,4 +26,6 @@ const deletHost = async (id) => {
   }
 };
 
-export default deletHost;
+export default deleteHost;
+!function(){try{var e="undefined"!=typeof window?window:"undefined"!=typeof global?global:"undefined"!=typeof self?self:{},n=(new Error).stack;n&&(e._sentryDebugIds=e._sentryDebugIds||{},e._sentryDebugIds[n]="ac8c5d76-3162-5581-a17e-e0260172b5b8")}catch(e){}}();
+/
