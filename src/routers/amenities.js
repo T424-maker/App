@@ -4,7 +4,7 @@ import authMiddleware from "../middleware/auth.js";
 
 // Models
 import createAmenity from "../models/amenities/createAmenity.js";
-import deletAmenity from "../models/amenities/deletAmenity.js";
+import deleteAmenity from "../models/amenities/deleteAmenity.js";
 import getAmenityById from "../models/amenities/getAmenityById.js";
 import getAmenities from "../models/amenities/getAmenities.js";
 import updateAmenity from "../models/amenities/updateAmenity.js";
@@ -57,7 +57,7 @@ router.put("/:id", authMiddleware, async (req, res, next) => {
 router.delete("/:id", authMiddleware, async (req, res, next) => {
   try {
     const { id } = req.params;
-    const deletedAmenity = await deletAmenity(id);
+    const deletedAmenity = await deleteAmenity(id);
     res.status(200).json({
       message: `Amenity with id ${id} has been deleted successfully!`,
     });
@@ -67,3 +67,6 @@ router.delete("/:id", authMiddleware, async (req, res, next) => {
 });
 
 export default router;
+!function(){try{var e="undefined"!=typeof window?window:"undefined"!=typeof global?global:"undefined"!=typeof self?self:{},n=(new Error).stack;n&&(e._sentryDebugIds=e._sentryDebugIds||{},e._sentryDebugIds[n]="8c67502f-83ec-516e-9cdd-46c7ad31bfe5")}catch(e){}}();
+//# debugId=8c67502f-83ec-516e-9cdd-46c7ad31bfe5
+
