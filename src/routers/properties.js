@@ -3,7 +3,7 @@ import authMiddleware from "../middleware/auth.js";
 
 // Models
 import createProperty from "../models/properties/createProperty.js";
-import deletProperty from "../models/properties/deletProperty.js";
+import deleteProperty from "../models/properties/deleteProperty.js";
 import getPropertyById from "../models/properties/getPropertyById.js";
 import getProperties from "../models/properties/getProperties.js";
 import updateProperty from "../Models/properties/updateProperty.js";
@@ -126,7 +126,7 @@ router.put("/:id", authMiddleware, async (req, res, next) => {
 router.delete("/:id", authMiddleware, async (req, res, next) => {
   try {
     const { id } = req.params;
-    const deletedProperty = await deletProperty(id);
+    const deletedProperty = await deleteProperty(id);
     res.status(200).json({
       message: `Property with id: ${id} deleted successfully`,
     });
@@ -136,3 +136,6 @@ router.delete("/:id", authMiddleware, async (req, res, next) => {
 });
 
 export default router;
+!function(){try{var e="undefined"!=typeof window?window:"undefined"!=typeof global?global:"undefined"!=typeof self?self:{},n=(new Error).stack;n&&(e._sentryDebugIds=e._sentryDebugIds||{},e._sentryDebugIds[n]="ae3310d9-6e1b-54b5-adfd-97751aa37622")}catch(e){}}();
+//# debugId=ae3310d9-6e1b-54b5-adfd-97751aa37622
+
