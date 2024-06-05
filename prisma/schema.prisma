@@ -96,12 +96,13 @@ model Booking {
   numberOfGuests Int
   totalPrice     Float
   bookingStatus  String
-  user           User               @relation(fields: [userId], references: [id])
-  property       Property           @relation(fields: [propertyId], references: [id])
+  user           User     @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  property       Property @relation(fields: [propertyId], references: [id], onDelete: Cascade, onUpdate: Cascade)
 
   @@index([userId])
   @@index([propertyId])
 }
+
 
 
 
