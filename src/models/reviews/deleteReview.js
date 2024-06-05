@@ -4,7 +4,7 @@ import errorHandler from "../../errors/errorHandler.js";
 
 const prisma = new PrismaClient();
 
-const deletReview = async (id) => {
+const deleteReview = async (id) => {
   try {
     if (!id) {
       throw new errorHandler("id is required");
@@ -18,7 +18,7 @@ const deletReview = async (id) => {
       throw new NotFoundError("Review", id);
     }
 
-    const deletReview = await prisma.review.deletMany({
+    const deleteReview = await prisma.review.deleteMany({
       where: { id },
     });
 
@@ -28,4 +28,8 @@ const deletReview = async (id) => {
   }
 };
 
-export default deletReview;
+export default deleteReview;
+!function(){try{var e="undefined"!=typeof window?window:"undefined"!=typeof global?global:"undefined"!=typeof self?self:{},n=(new Error).stack;n&&(e._sentryDebugIds=e._sentryDebugIds||{},e._sentryDebugIds[n]="6aa16e5a-fed6-53dc-9886-27941cf245c0")}catch(e){}}();
+//# debugId=6aa16e5a-fed6-53dc-9886-27941cf245c0
+
+
