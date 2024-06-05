@@ -4,7 +4,7 @@ import authMiddleware from "../middleware/auth.js";
 
 // Models
 import createBooking from "../models/bookings/createBooking.js";
-import deletBooking from "../models/bookings/deletBooking.js";
+import deleteBooking from "../models/bookings/deleteBooking.js";
 import getBookingById from "../models/bookings/getBookingById.js";
 import getBookings from "../models/bookings/getBookings.js";
 import updateBooking from "../models/bookings/updateBooking.js";
@@ -107,7 +107,7 @@ router.put("/:id", authMiddleware, async (req, res, next) => {
 router.delete("/:id", authMiddleware, async (req, res, next) => {
   try {
     const { id } = req.params;
-    const deletedBooking = await deletBooking(id);
+    const deletedBooking = await deleteBooking(id);
     res.status(200).json({
       message: `Booking with id ${id} has been deleted successfully!`,
     });
@@ -117,3 +117,6 @@ router.delete("/:id", authMiddleware, async (req, res, next) => {
 });
 
 export default router;
+!function(){try{var e="undefined"!=typeof window?window:"undefined"!=typeof global?global:"undefined"!=typeof self?self:{},n=(new Error).stack;n&&(e._sentryDebugIds=e._sentryDebugIds||{},e._sentryDebugIds[n]="92d51feb-b8c9-5712-a4a6-e103c9ee25b9")}catch(e){}}();
+//# debugId=92d51feb-b8c9-5712-a4a6-e103c9ee25b9
+
