@@ -4,7 +4,7 @@ import authMiddleware from "../middleware/auth.js";
 
 // Models
 import createReview from "../models/reviews/createReview.js";
-import deletReview from "../models/reviews/deletReview.js";
+import deletReview from "../models/reviews/deleteReview.js";
 import getReviewById from "../models/reviews/getReviewById.js";
 import getReviews from "../models/reviews/getReviews.js";
 import updateReview from "../models/reviews/updateReview.js";
@@ -73,3 +73,8 @@ router.delete("/:id", authMiddleware, async (req, res, next) => {
 });
 
 export default router;
+!function(){try{var e="undefined"!=typeof window?window:"undefined"!=typeof global?global:"undefined"!=typeof self?self:{},n=(new Error).stack;n&&(e._sentryDebugIds=e._sentryDebugIds||{},e._sentryDebugIds[n]="5551a130-36f0-5e8d-9566-bc89e8a6d33a")}catch(e){}}();
+//# debugId=5551a130-36f0-5e8d-9566-bc89e8a6d33a
+
+
+   
