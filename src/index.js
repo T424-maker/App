@@ -19,48 +19,55 @@ dotenv.config();
 const app = express();
 
 Sentry.init({
-  dsn: "", // Sentry DSN is leeg om Sentry uit te schakelen
-  tracesSampleRate: 1.0,
+  dsn: "https://eba745de5c6437acdf366bb649d2773b@o4507310110539776.ingest.de.sentry.io/4507368812445776",
+  integrations: [
+    // enable HTTP calls tracing
+    new Sentry.Integrations.Http({ tracing: true }),
+    // enable Express.js middleware tracing
+    new Sentry.Integrations.Express({ app }), // Use the initialized app
+    ...Sentry.autoDiscoverNodePerformanceMonitoringIntegrations(),
+  ],
+  // Performance Monitoring
+  tracesSampleRate: 1.0, // Capture 100% of the transactions
+  // Set sampling rate for profiling - this is relative to tracesSampleRate
+  profilesSampleRate: 1.0,
 });
 
+// The request handler must be the first middleware on the app
 app.use(Sentry.Handlers.requestHandler());
 
-// All your controllers should live here
-app.get("/", function rootHandler(req, res) {
-  res.end("Hello world!");
+// TracingHandler creates a trace for every incoming request
+app.use(Sentry.Handlers.tracingHandler());
+
+app.use(express.json());
+
+app.use("/users", usersRouter);
+app.use("/properties", propertiesRouter);
+app.use("/amenities", amenitiesRouter);
+app.use("/login", loginRouter);
+app.use("/booking", bookingsRouter);
+app.use("/hosts", hostsRouter);
+app.use("/reviews", reviewRouter); 
+
+app.use(log);
+
+app.get("/", (req, res) => {
+  res.send("Hello world!");
 });
 
 // The error handler must be registered before any other error middleware and after all controllers
 app.use(Sentry.Handlers.errorHandler());
 
-// Optional fallthrough error handler
-app.use(function onError(err, req, res, next) {
-  // The error id is attached to `res.sentry` to be returned
-  // and optionally displayed to the user for support.
-  res.statusCode = 500;
-  res.end(res.sentry + "\n");
+// Error handling middleware
+function errorHandler(err, req, res, next) {
+  res.status(500).json({ message: err.message });
+}
+app.use(errorHandler);
+
+app.listen(3000, () => {
+  console.log("Server is listening on port 3000");
 });
 
-app.use(express.json());
-app.use(log);
 
-app.use("/users", usersRouter);
-app.use("/properties", propertiesRouter);
-app.use("/reviews", reviewRouter);
-app.use("/bookings", bookingsRouter);
-app.use("/hosts", hostsRouter);
-app.use("/amenities", amenitiesRouter);
-app.use("/login", loginRouter);
-
-// Alleen deze route-definitie behouden
-app.get("/", (req, res) => {
-  res.send("<h1>Hello World, This will be the Booking api</h1>");
-});
-
-// Verander poort naar 3001 om poortconflict te vermijden
-const port = process.env.PORT || 3001;
-app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
-});
 
 
